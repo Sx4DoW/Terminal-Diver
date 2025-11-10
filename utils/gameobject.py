@@ -1,4 +1,6 @@
 """Base class for all game objects."""
+from pygame import Rect
+from pgzero.actor import Actor
 
 
 class GameObject:
@@ -8,10 +10,20 @@ class GameObject:
     in the game. Subclasses should override draw() and optionally update().
     """
 
-    def __init__(self, hoverable: bool = False, draggable: bool = False) -> None:
+    def __init__(
+            self,
+            hitbox: Rect = None,
+            image: Actor = None,
+            hoverable: bool = False,
+            draggable: bool = False,
+            collidable: bool = False
+    ):
         """Initialize the game object."""
+        self.hitbox = hitbox
+        self.image = image
         self.hoverable = hoverable
         self.draggable = draggable
+        self.collidable = collidable
 
     def draw(self, screen) -> None:
         """Draw the game object on screen.
@@ -35,3 +47,11 @@ class GameObject:
             **kwargs: Keyword arguments
         """
         pass
+
+    def isDrawable(self) -> bool:
+        """Check if the object is drawable.
+
+        Returns:
+            True if the object has either a rect or an actor, False otherwise.
+        """
+        return self.hitbox is not None or self.image is not None
