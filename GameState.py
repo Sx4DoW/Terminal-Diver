@@ -4,7 +4,7 @@ This module exposes a class-based (static) GameState. The class uses
 class attributes to store application-wide state so it behaves like a
 static container.
 """
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Optional
 from classes.GameObject import GameObject
 from utils.SparseSet import SparseSet
 from random import Random
@@ -41,6 +41,21 @@ class GameState:
     # Random seed for procedural generation
     seed: int = Random().randint(0, 2**32 - 1)
 
+    # Game instance
+    _game: Optional[object] = None
+
+    @classmethod
+    def get_game(cls):
+        """Get or create the Game instance (lazy initialization).
+        
+        Returns:
+            Game instance
+        """
+        if cls._game is None:
+            from classes.Game import Game
+            cls._game = Game()
+        return cls._game
+
     @classmethod
     def set_screen(cls, name: str) -> None:
         """Change the current screen with validation.
@@ -52,11 +67,11 @@ class GameState:
             ValueError: If screen name is not valid
         """
         from utils.Menu import mainMenu, settingsMenu
-        from classes.Game import game
+        
         menu_objs = {
             cls.SCREEN_MAIN_MENU: mainMenu,
             cls.SCREEN_SETTINGS: settingsMenu,
-            cls.SCREEN_GAME: game,
+            cls.SCREEN_GAME: cls.get_game(),
             cls.SCREEN_QUIT: None,
         }
         valid_screens = (cls.SCREEN_MAIN_MENU, cls.SCREEN_SETTINGS, cls.SCREEN_GAME, cls.SCREEN_QUIT)
@@ -64,8 +79,11 @@ class GameState:
         if name not in valid_screens:
             raise ValueError(f"Invalid screen: {name}. Must be one of {valid_screens}")
         
+        #print(f"Switching screen from {cls.current_screen} to {name}")
+        #print("before gameobjs:", cls.game_objects)
         GameState.remove_gameObject(menu_objs.get(cls.current_screen))
         GameState.add_gameObject(menu_objs.get(name))
+        #print("after gameobjs:", cls.game_objects)
 
         cls.current_screen = name
 

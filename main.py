@@ -18,14 +18,15 @@ def draw():
     elif GameState.is_screen(GameState.SCREEN_SETTINGS):
         Menu.settingsMenu.draw(screen) # type: ignore
     elif GameState.is_screen(GameState.SCREEN_GAME):
-        # Draw game screen (to be implemented)
-        pass
+        GameState.get_game().draw(screen) # type: ignore
+
 
 def update():
     """Update function called by PgZero every frame."""
     if GameState.is_screen(GameState.SCREEN_QUIT):
-        print("Exiting game...")
+        #print("Exiting game...")
         #TODO close the game somehow
+        pass
 
 def update_mouse(pos, button=None):
     """Update function to handle mouse movement on main menu."""
@@ -38,16 +39,16 @@ def on_mouse_move(pos):
 
 def on_mouse_down(pos, button):
     """Handle mouse button down events."""
-    print(f"Mouse down at {pos} with button {button}")
+    #print(f"Mouse down at {pos} with button {button}")
     update_mouse(pos, button)
 
 def main():
     # Initialize game and start PgZero
     settings_manager = SettingsManager("settings.txt")
-    print("Loaded settings")
-    print("Game initialized")
+    #print("Loaded settings")
+    #print("Game initialized")
     # Loading Main Menu
     GameState.set_screen(GameState.SCREEN_MAIN_MENU)
-    print("Game started")
+    #print("Game started")
 
 main()

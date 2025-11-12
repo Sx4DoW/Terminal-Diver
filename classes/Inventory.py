@@ -21,4 +21,5 @@ class Inventory:
                 self.remove_item(item)
             else:
                 #TODO find a way to notify that item is not usable
-                print("Item is not usable")
+                #print("Item is not usable")
+                pass

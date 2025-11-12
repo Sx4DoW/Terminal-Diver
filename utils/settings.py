@@ -15,12 +15,12 @@ class SettingsManager:
         try:
             open(self.settings_filename, 'r', encoding='utf-8').close()
         except FileNotFoundError:
-            print(f"Settings file '{self.settings_filename}' not found. Creating a new one.")
+            #print(f"Settings file '{self.settings_filename}' not found. Creating a new one.")
             try:
                 open(self.settings_filename, 'w', encoding='utf-8').close()
             except Exception as e:
-                print(f"Error creating settings file: {e}")
-            
+                #print(f"Error creating settings file: {e}")
+                pass
 
         # Initialize settings dictionary
         if settings_dict is None:
@@ -56,7 +56,8 @@ class SettingsManager:
                         key, val = line.split('=', 1)
                         settings[key.strip()] = val.strip()
                 except ValueError:
-                    print(f"Error: Could not parse line: {line}")
+                    #print(f"Error: Could not parse line: {line}")
+                    pass
         self.settings = settings
 
     def edit_setting(self, key: str, value: str) -> None:
@@ -68,6 +69,6 @@ class SettingsManager:
             self.settings[key]
             self.save_settings()
         except KeyError:
-            print(f"Error: Setting '{key}' not found.")
+            #print(f"Error: Setting '{key}' not found.")
             return
         

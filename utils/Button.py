@@ -56,6 +56,7 @@ class Button(GameObject):
 
     def is_clicked(self, mouse_pos, button) -> bool:
         """Check if button is clicked with left mouse button."""
+        #print(f"Button {self.text} clicked check at {mouse_pos} with button {button}")
         return self.is_hovered(mouse_pos) and button == 1
 
     def update(self, mouse_pos, button=None) -> None:

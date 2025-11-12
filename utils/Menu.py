@@ -50,6 +50,7 @@ class Menu(GameObject):
         Args:
             screen: PgZero screen object
         """
+        #print(f"Drawing menu '{self.title}'")
         screen.clear()
         screen.fill((10, 10, 10))
 

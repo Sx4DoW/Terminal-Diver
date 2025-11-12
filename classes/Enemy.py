@@ -1,9 +1,16 @@
-class Enemy:
+from pgzero.actor import Actor
+from classes.GameObject import GameObject
+
+class Enemy(GameObject):
     def __init__(self, healt: int, damage: int, attack_speed: float):
+        super().__init__(Actor("back_unfocused"))
         self.healt: int = healt
         self.damage: int = damage
         self.attack_speed: float = attack_speed
     
+    def draw(self, screen):
+        self.target.draw()
+
     @staticmethod
     def random_enemy(seed: int) -> 'Enemy':
         from random import Random

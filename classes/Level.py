@@ -11,10 +11,12 @@ class Level(GameObject):
         pass
     
     def draw(self, screen):
+        #print("Drawing level with rooms:")
         for room in self.rooms:
+            #print(f" - {room}")
             room.draw(screen)
 
-    def update(self):
+    def update(self, pos, button=None):
         for obj in self.objects:
             obj.update()
 

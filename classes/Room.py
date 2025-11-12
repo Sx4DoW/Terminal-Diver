@@ -17,7 +17,9 @@ class Room(GameObject):
         self.objects: SparseSet[GameObject] = SparseSet()
 
     def draw(self, screen):
+        #print("Drawing room with objects:")
         for obj in self.objects:
+            #print(f" - {obj}")
             obj.draw(screen)
     
     def update(self):
